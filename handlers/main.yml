@@ -1,0 +1,5 @@
+---
+# handlers file for avahi_common
+
+- name: restart avahi-alias
+  action: service name=avahi-alias state=restarted

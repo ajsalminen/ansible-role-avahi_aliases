@@ -1,0 +1,42 @@
+---
+# tasks file for avahi_aliases
+
+- name: Install avahi and other requirements.
+  apt:
+    pkg={{item}}
+    state=present
+    update_cache=yes
+    cache_valid_time={{APT_CACHE_VALID_TIME}}
+  with_items:
+    - python-avahi
+    - python-pip
+    - avahi-daemon
+    - git
+    - libnss-mdns
+
+- name: Install avahi_aliases.
+  pip:
+    name=git+https://github.com/airtonix/avahi-aliases.git#egg=avahi-aliases
+    state=present
+
+- name: Create aliases directory.
+  file:
+    path=/etc/avahi/aliases.d
+    state=directory
+    owner=root
+    group=root
+    mode=0755
+
+- name: Copy init.d script for avahi-alias.
+  copy:
+    src=avahi-alias
+    dest=/etc/init.d/avahi-alias
+    owner=root
+    group=root
+    mode=0755
+
+- service:
+    name=avahi-alias
+    enabled=yes
+    state=started
+    pattern=avahi-alias

@@ -14,10 +14,12 @@
     - git
     - libnss-mdns
 
-- name: Install avahi_aliases.
-  pip:
-    name=git+https://github.com/airtonix/avahi-aliases.git#egg=avahi-aliases
-    state=present
+
+# Need to run manually until https://github.com/ansible/ansible-modules-core/pull/227
+- name: Install avahi-aliases
+  command: /usr/bin/pip install git+git://github.com/airtonix/avahi-aliases.git
+
+
 
 - name: Create aliases directory.
   file:

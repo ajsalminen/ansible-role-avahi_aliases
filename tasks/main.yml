@@ -13,11 +13,12 @@
     - avahi-daemon
     - git
     - libnss-mdns
+    - python-daemon
 
 
 # Need to run manually until https://github.com/ansible/ansible-modules-core/pull/227
 - name: Install avahi-aliases
-  command: /usr/bin/pip install git+git://github.com/airtonix/avahi-aliases.git
+  command: /usr/bin/pip install git+https://github.com/airtonix/avahi-aliases.git
 
 
 

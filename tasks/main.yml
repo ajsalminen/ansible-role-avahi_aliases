@@ -3,24 +3,20 @@
 
 - name: Install avahi and other requirements.
   apt:
-    pkg={{item}}
-    state=present
-    update_cache=yes
-    cache_valid_time={{APT_CACHE_VALID_TIME}}
-  with_items:
-    - python-avahi
-    - python-pip
-    - avahi-daemon
-    - git
-    - libnss-mdns
-    - python-daemon
+    name:
+      - python-avahi
+      - python-pip
+      - avahi-daemon
+      - git
+      - libnss-mdns
+      - python-daemon
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{APT_CACHE_VALID_TIME}}"
 
-
-# Need to run manually until https://github.com/ansible/ansible-modules-core/pull/227
 - name: Install avahi-aliases
-  command: /usr/bin/pip install git+https://github.com/airtonix/avahi-aliases.git
-
-
+  pip:
+    name: git+https://github.com/airtonix/avahi-aliases.git
 
 - name: Create aliases directory.
   file:

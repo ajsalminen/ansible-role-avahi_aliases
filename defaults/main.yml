@@ -2,3 +2,4 @@
 # defaults file for avahi_aliases
 APT_CACHE_VALID_TIME: 3600
 AVAHI_ALIASES_CONFIG_DIR: /etc/avahi/aliases.d
+avahi_aliases_domains: []

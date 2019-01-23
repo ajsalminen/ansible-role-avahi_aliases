@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for domain in avahi_aliases_domains %}
+{{ domain ~ '.local' }}
+{% endfor %}

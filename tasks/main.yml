@@ -39,3 +39,10 @@
     enabled=yes
     state=started
     pattern=avahi-alias
+
+- name: Template domains.
+  template:
+    src: aliases.j2
+    dest: "{{AVAHI_ALIASES_CONFIG_DIR}}/aliases"
+  notify:
+    - restart avahi-alias

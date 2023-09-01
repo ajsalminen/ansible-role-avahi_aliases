@@ -4,19 +4,20 @@
 - name: Install avahi and other requirements.
   apt:
     name:
-      - python-avahi
-      - python-pip
+      - python3-avahi
+      - python3-pip
       - avahi-daemon
       - git
       - libnss-mdns
-      - python-daemon
+      - python3-daemon
     state: present
     update_cache: yes
     cache_valid_time: "{{APT_CACHE_VALID_TIME}}"
 
-- name: Install avahi-aliases
+- name: Install avahi-aliases.
   pip:
     name: git+https://github.com/airtonix/avahi-aliases.git
+    extra_args: --break-system-packages
 
 - name: Create aliases directory.
   file:

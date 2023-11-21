@@ -23,7 +23,7 @@
 
   when: ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11
 
-- name: Install avahi and aliases.
+- name: Install avahi and avahi-aliases for Debian Buster and earlier.
   block:
   - name: Install avahi and other requirements.
     apt:

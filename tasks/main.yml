@@ -1,23 +1,48 @@
 ---
 # tasks file for avahi_aliases
 
-- name: Install avahi and other requirements.
-  apt:
-    name:
-      - python3-avahi
-      - python3-pip
-      - avahi-daemon
-      - git
-      - libnss-mdns
-      - python3-daemon
-    state: present
-    update_cache: yes
-    cache_valid_time: "{{APT_CACHE_VALID_TIME}}"
+- name: Install avahi and avahi-aliases for Debian Bullseye and later.
+  block:
+  - name: Install avahi and other requirements.
+    apt:
+      name:
+        - python3-avahi
+        - python3-pip
+        - avahi-daemon
+        - git
+        - libnss-mdns
+        - python3-daemon
+      state: present
+      update_cache: yes
+      cache_valid_time: "{{APT_CACHE_VALID_TIME}}"
 
-- name: Install avahi-aliases.
-  pip:
-    name: git+https://github.com/airtonix/avahi-aliases.git
-    extra_args: --break-system-packages
+  - name: Install avahi-aliases.
+    pip:
+      name: git+https://github.com/airtonix/avahi-aliases.git
+      extra_args: --break-system-packages
+
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11
+
+- name: Install avahi and avahi-aliases for Debian Buster and earlier.
+  block:
+  - name: Install avahi and other requirements.
+    apt:
+      name:
+        - python-avahi
+        - python-pip
+        - avahi-daemon
+        - git
+        - libnss-mdns
+        - python-daemon
+      state: present
+      update_cache: yes
+      cache_valid_time: "{{APT_CACHE_VALID_TIME}}"
+
+  - name: Install avahi-aliases.
+    pip:
+      name: git+https://github.com/airtonix/avahi-aliases.git
+
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version|int < 11
 
 - name: Create aliases directory.
   file:
